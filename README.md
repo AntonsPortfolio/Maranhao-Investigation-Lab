@@ -13,12 +13,12 @@ Dive into DoubleDragon and thwart the attack!
 
 #### Objective: 
 Identify the website that triggered the compromise.
-#### Method: 
-Identified the affected user and workstation, then reviewed Sysmon DNS query activity for t.leon on host DESKTOP to isolate suspicious domains linked to the initial stage of the intrusion.
+#### Methodology: 
+Started by identifying the affected user and workstation to define the investigation scope. With that context established, reviewed Sysmon DNS query activity on DESKTOP for t.leon during the suspected compromise window, then filtered the results to isolate suspicious external domains that aligned with the beginning of attacker activity.
 #### Findings: 
-The victim resolved paste.sh via msedge.exe, aligning with the beginning of malicious activity.
+Reviewing the DNS activity showed a suspicious lookup for paste.sh initiated by msedge.exe. The domain appeared during the same timeframe the compromise began, making it the most likely site that triggered the intrusion.
 #### Why it matters: 
-This establishes the initial access vector and anchors the start of the intrusion timeline.
+This establishes the initial access point and provides the first confirmed external indicator tied to the compromise.
 #### Query Used:
 ``` 
 index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=22 t.leon
@@ -79,6 +79,19 @@ The archive python.zip was downloaded and extracted, resulting in two files: tes
 
 #### Why it matters:
 This shows the intrusion progressed beyond the initial payload and that additional components were introduced to support later stages of the attack.
+
+#### Querys Used: 
+```
+index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=11 TargetFilename=*.zip
+|table _time, User, host, Image, TargetFilename
+
+```
+
+```
+index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=11 host="FILES-SERVER" "C:\\Users\\admin143\\Downloads"
+| table user, Image, CommandLine, TargetFilename, _time
+
+```
 
 #### Evidence:
 
