@@ -1,4 +1,4 @@
-# StarkTech Incident - APT41 Investigation Lab 
+#  💢 StarkTech Incident - APT41 Investigation Lab  
 ## Scenario 
 On August 25, 2025, CoreTech’s SOC spotted unusual activity on a workstation, hinting at a breach. Suspicious processes and network activity spread to critical servers, threatening data and systems.
  
@@ -9,7 +9,7 @@ Dive into DoubleDragon and thwart the attack!
 
 # **Investigation Walkthrough**
 
-## 1. Initial Access 
+##  💢 1. Initial Access 
 
 #### Objective: 
 Identify the website that triggered the compromise.
@@ -34,3 +34,32 @@ index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventI
 <img width="800" height="300" alt="image" src="https://github.com/user-attachments/assets/3c87590d-a7e1-4593-b651-5c327073f581" />
 
 **Answer:** (paste.sh) the suspicious website 
+
+---
+
+##  💢 2. Payload Delivery and Execution
+
+#### Objective: 
+Identify the full URL used to download and execute the next-stage payload.
+
+#### Methodology:
+After confirming the likely initial access site, pivoted into process creation telemetry to determine what executed immediately afterward. Reviewed PowerShell-related process creation events on DESKTOP around the same timeframe, then examined full command-line arguments to identify any remote download and execution activity linked to the compromise.
+
+#### Findings:
+PowerShell was executed with a hidden window and used Invoke-WebRequest to download iexploreplugin.exe from 10.10.5.171:8883, then executed it from the user’s TEMP directory.
+
+#### Why it matters:
+This confirms the first-stage payload delivery method and identifies the attacker-controlled infrastructure used to place malicious code on the host.
+
+#### Querys Used:
+``` 
+index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventID=1 t.leon powershell 
+| rex "Command: (?<command_line>.*)"
+| table Image, CommandLine, User
+| sort _time 
+```
+
+### Evidence 
+<img width="2048" height="834" alt="image" src="https://github.com/user-attachments/assets/9784336b-a755-4d11-acdd-a784ecd87dd9" />
+
+
