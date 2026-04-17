@@ -62,4 +62,6 @@ index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventI
 ### Evidence 
 <img width="2048" height="834" alt="image" src="https://github.com/user-attachments/assets/9784336b-a755-4d11-acdd-a784ecd87dd9" />
 
+**Answer:** <ins>hxxp://10.10.5.171:8883/iexploreplugin[.]exe<ins>
+
 
