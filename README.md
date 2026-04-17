@@ -66,6 +66,8 @@ index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational" EventI
 
 ---
 
+## 💢 3. Files Extracted from Malicious ZIP
+
 #### Objective: 
 Identify the files extracted from the malicious ZIP archive.
 
