@@ -971,10 +971,8 @@ index="main" host="files-server" source="xmlwineventlog:security" EventID="4624"
 
 ## Screenshot
 
-![FILES-SERVER network logon](./screenshots/15-fileserver-logon.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/d1e37166-c47e-4fe3-9cbd-a5f2b75929b1" />
 
-> **Screenshot source:** PDF page 16  
-> **What it should show:** `admin143`, `10.10.5.62`, Logon Type 3, timestamp `13:58:52`.
 
 ## What the Evidence Showed
 
@@ -1007,10 +1005,8 @@ Important correlation:
 
 ## Screenshot
 
-![Command execution after FILES-SERVER logon](./screenshots/16-fileserver-command-execution.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/81d9aa6e-abfc-4e9e-867b-954a77893f13" />
 
-> **Screenshot source:** PDF pages 18–19  
-> **What it should show:** `whoami` one second after logon.
 
 ## DC01 Logon
 
@@ -1094,10 +1090,9 @@ index=* (host="FILES-SERVER" OR host="dc01") source="XmlWinEventLog:Microsoft-Wi
 
 ## Screenshot
 
-![python.zip staging](./screenshots/17-python-zip.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/7af77a5e-8cc2-4a47-aab0-41eda9fcc561" />
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/c8c9b549-5c12-43e2-8bdf-cbb9c1b7afa6" />
 
-> **Screenshot source:** PDF pages 19–20  
-> **What it should show:** `python.zip`, `testc.exe`, `python311.dll`.
 
 ## What the Evidence Showed
 
@@ -1183,7 +1178,9 @@ urlmon.dll
 
 ## Screenshot
 
-![testc dropped files](./screenshots/18-testc-dropped-files.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/cf46c0b2-4f59-4daf-8642-e347141c171c" />
+<img width="2048" height="600" alt="image" src="https://github.com/user-attachments/assets/13e95d9e-a2ba-41a5-9c0e-4fa6f57ac4e7" />
+
 
 > **Screenshot source:** PDF pages 20–21 and 23  
 > **What it should show:** `testc.exe`, `ws2_32.exe`, `system_module.exe`, `python311.dll`.
@@ -1260,10 +1257,9 @@ index=* (host="FILES-SERVER" OR host="dc01") source="XmlWinEventLog:Microsoft-Wi
 
 ## Screenshot
 
-![Secondary C2 DNS](./screenshots/19-secondary-c2-dns.png)
+<img width="2048" height="600" alt="image" src="https://github.com/user-attachments/assets/de24d9f7-8f73-4912-afe5-552ad4f90383" />
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/7ba9b502-2da6-483f-a24b-b62b4032f033" />
 
-> **Screenshot source:** PDF page 22  
-> **What it should show:** `agegamepay.com`, `ws2_32.exe`, `10.10.5.245`.
 
 ## DNS Evidence
 
@@ -1289,10 +1285,8 @@ index=* host="FILES-Server" EventCode=3 DestinationIp=10.10.5.245
 
 ## Screenshot
 
-![Secondary C2 network connections](./screenshots/20-secondary-c2-network.png)
+<img width="2048" height="610" alt="image" src="https://github.com/user-attachments/assets/a9b94826-1cb4-45f1-91ff-c6b825128dcb" />
 
-> **Screenshot source:** PDF page 23  
-> **What it should show:** ports `8443` and `8083`.
 
 ## Network Evidence
 
@@ -1489,10 +1483,8 @@ admin143 logged into DC01 from 10.10.5.62
 
 ## Screenshot
 
-![DC01 lateral movement](./screenshots/23-dc01-logon.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/7b85090e-a305-4f7b-84af-adbfb7bc8844" />
 
-> **Screenshot source:** PDF page 17  
-> **What it should show:** `admin143`, `10.10.5.62`, `DC01`, timestamp `14:34:30`.
 
 <details>
 <summary><strong>Script Download Query</strong></summary>
