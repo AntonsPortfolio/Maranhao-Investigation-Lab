@@ -649,9 +649,6 @@ index="main" host="DESKTOP" source="xmlwineventlog:security" EventID=4697
 <img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/08a274d8-9d8a-48ac-98b3-0eb5794b1431" />
 
 
-> **Screenshot source:** PDF page 12  
-> **What it should show:** Atera, SplashtopRemoteService, AnyDesk.
-
 ## What the Evidence Showed
 
 The following RMM services were installed:
@@ -704,7 +701,7 @@ Security Event ID 4698 showed:
 AteraAgentServiceWatchdog
 ```
 
-Registry and task folder artefacts showed:
+Registry and task folder artifacts showed:
 
 ```text
 Monitoring Recovery
@@ -720,10 +717,19 @@ Relevant timestamps:
 
 ## Screenshot
 
-![Scheduled task persistence](./screenshots/11-scheduled-tasks.png)
+<table align="center">
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/b1b5e75f-2eca-434e-9e26-20d5622cbc61" width="300" height="220"></td>
+    <td><img src="https://github.com/user-attachments/assets/77bea131-c29e-4313-b43e-a820a5762d2f" width="300" height="220"></td>
+    <td><img src="https://github.com/user-attachments/assets/a12a1783-cf94-47cd-b683-b68f23d7bdc2" width="300" height="220"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/2241dde0-e0de-464a-b35c-0ee1ab244023" width="300" height="220"></td>
+    <td><img src="https://github.com/user-attachments/assets/75e91b4f-45cb-4364-9851-342817c538a6" width="300" height="220"></td>
+    <td></td>
+  </tr>
+</table>
 
-> **Screenshot source:** PDF pages 13–14  
-> **What it should show:** Event ID 4698, Registry Explorer, task folder artefacts, Base64 decode.
 
 ## What This Meant
 
@@ -751,7 +757,7 @@ The script `scvhost.vbs` appeared during the persistence timeframe. I wanted to 
 
 ## Why I Pivoted to Shortcut Creation
 
-Scripts are often used to create shortcuts in startup or persistence locations. I searched for `.lnk` file creation to determine whether the script created a shortcut.
+Scripts are often used for persistence. I searched for events created by cscript  to determine whether the script created any files, shortcuts etc.
 
 ## Analyst Reasoning
 
@@ -779,12 +785,21 @@ Shortcut created:
 iexplorer.lnk
 ```
 
+File Creation Query:
+
+```spl
+index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational"  "*cscript.exe" 
+| table _time Image TargetImage TargetFilename EventID
+```
+
+--- 
+
 ## Screenshot
 
-![scvhost shortcut persistence](./screenshots/12-scvhost-shortcut.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/c07089bf-23e5-4e6b-ad28-8eaf6ded0214" />
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/40ab44aa-5d55-4e20-89c7-e68cea6ca6b1" />
 
-> **Screenshot source:** PDF pages 14–15  
-> **What it should show:** `scvhost.vbs`, `cscript.exe`, and `.lnk` evidence if captured.
+
 
 ## Evidence Handling Note
 
@@ -807,7 +822,7 @@ The script was linked to shortcut creation, which increased confidence that it p
 
 ## Next Pivot
 
-After persistence was confirmed, I reviewed whether the attacker attempted to weaken endpoint security.
+After persistence was confirmed, I reviewed whether the attacker attempted to weaken endpoint security which was clear in earlier evidence.
 
 ---
 
@@ -843,10 +858,8 @@ Timestamp:
 
 ## Screenshot
 
-![Defender tampering command](./screenshots/13-defender-evasion.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/aeb731e6-a461-4a5e-8301-a173c4b51f21" />
 
-> **Screenshot source:** PDF page 15/16  
-> **What it should show:** `Set-MpPreference -DisableRealtimeMonitoring`.
 
 ## What This Meant
 
@@ -889,7 +902,7 @@ I kept the wording cautious because LSASS access supports credential dumping, bu
 
 ```spl
 index="main" host="DESKTOP" EventCode=10 TargetImage="*lsass.exe"
-| table _time, SourceImage, TargetImage, GrantedAccess, CallTrace
+| table _time, SourceImage, TargetImage, 
 | sort _time
 ```
 
@@ -897,10 +910,9 @@ index="main" host="DESKTOP" EventCode=10 TargetImage="*lsass.exe"
 
 ## Screenshot
 
-![LSASS access by spoolsv](./screenshots/14-lsass-access.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/f46de888-d36c-4a38-b30e-06c9b2406e92" />
 
-> **Screenshot source:** PDF page 26  
-> **What it should show:** `iexploreplugin.exe`, `spoolsv.exe`, and `lsass.exe`.
+
 
 ## What the Evidence Showed
 
