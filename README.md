@@ -230,10 +230,10 @@ index="main" user="t.leon" host="DESKTOP" source="xmlwineventlog:microsoft-windo
 
 ## Screenshots
 
-<img width="1803" height="785" alt="image" src="https://github.com/user-attachments/assets/04fab0cd-c091-498b-80a5-a6877c121137" />
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/04fab0cd-c091-498b-80a5-a6877c121137" />
 
 
-<img width="2048" height="812" alt="image" src="https://github.com/user-attachments/assets/f60f882d-dbc5-4edf-8390-8cbd3f1a75ce" />
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/f60f882d-dbc5-4edf-8390-8cbd3f1a75ce" />
 
 
 ## What the Evidence Showed
@@ -348,6 +348,9 @@ index="main" source="xmlwineventlog:microsoft-windows-sysmon/operational"
 | stats count by EventID
 ```
 
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/bba1f5b4-5c35-411b-9649-3e0e11a1506d" />
+
+
 </details>
 
 ## Finding
@@ -396,10 +399,8 @@ index="main" user="t.leon" host="DESKTOP" source="xmlwineventlog:microsoft-windo
 
 ## Screenshot
 
-![Initial C2 connection from iexploreplugin](./screenshots/07-initial-c2.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/3b4aec67-235d-46b1-8af3-2c322d94cba5" />
 
-> **Screenshot source:** PDF page 7  
-> **What it should show:** `10.10.5.62:8080`.
 
 ## What the Evidence Showed
 
@@ -467,10 +468,8 @@ index="main" host="desktop" user="t.leon" source="xmlwineventlog:microsoft-windo
 
 ## Screenshot
 
-![Discovery commands from iexploreplugin](./screenshots/08-discovery-commands.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/715140b2-45be-4747-a302-41553388743f" />
 
-> **Screenshot source:** PDF page 8  
-> **What it should show:** commands spawned by `iexploreplugin.exe`.
 
 ## What the Evidence Showed
 
@@ -535,10 +534,8 @@ This became an important pivot because the injected processes were not dead ends
 
 ## Screenshot
 
-![CreateRemoteThread into notepad and spoolsv](./screenshots/09-process-injection.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/b131d51a-895f-457d-9bb8-034054d468ae" />
 
-> **Screenshot source:** PDF page 9  
-> **What it should show:** Event ID 8 involving `notepad.exe` and `spoolsv.exe`.
 
 ## What the Evidence Showed
 
@@ -566,13 +563,16 @@ Since `notepad.exe` was involved in injection, I checked whether it created susp
 <summary><strong>SPL Query</strong></summary>
 
 ```spl
-index="main" host=DESKTOP EventCode=11 (TargetFilename=*.zip OR TargetFilename=*.json)
+index="main" host=DESKTOP EventCode=11 "*notepad.exe"
 | table _time, Image, TargetFilename, User
 ```
+
 
 </details>
 
 The results showed BloodHound-style output:
+
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/cb92bf91-53ec-4932-a8ed-3f2522488fd8" />
 
 ```text
 20250825133552_BloodHound.zip
@@ -645,7 +645,9 @@ index="main" host="DESKTOP" source="xmlwineventlog:security" EventID=4697
 
 ## Screenshot
 
-![RMM services installed](./screenshots/10-rmm-persistence.png)
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/d0d36043-94eb-44ef-86d3-3f78c055dde3" />
+<img width="1300" height="600" alt="image" src="https://github.com/user-attachments/assets/08a274d8-9d8a-48ac-98b3-0eb5794b1431" />
+
 
 > **Screenshot source:** PDF page 12  
 > **What it should show:** Atera, SplashtopRemoteService, AnyDesk.
